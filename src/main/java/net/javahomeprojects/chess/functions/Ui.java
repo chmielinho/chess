@@ -5,11 +5,11 @@ import java.util.regex.Pattern;
 
 public class Ui {
 
-    public static void printBoard(String[][] board, Player player1, Player player2){
+    public static void printBoard(String[][] board, Player player1, Player player2) {
         StringBuilder sb = new StringBuilder();
         System.out.print("   a  b  c  d  e  f  g  h\n");
         for (int y = 0; y <= 7; y++) {
-            sb.append(y+1).append(" ");
+            sb.append(y + 1).append(" ");
             for (int x = 0; x <= 7; x++) {
 
                 if (board[y][x] == null) {
@@ -124,4 +124,40 @@ public class Ui {
         return new int[]{counter1, counter2, verse, column};
     }
 
+    public static boolean checkMove(int[] match, int[] match1, Board board) {
+        // check white pawns
+        if (board.getBoard()[match[2]][match[3]].equals(" P")) {
+            if (match1[3] == match[3] && board.getBoard()[match1[2]][match1[3]] == null) {
+                if (match[2] == 6) {
+                    if (match1[2] == match[2] - 2 || match1[2] == match[2] - 1) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else if (match1[2] == match[2] - 1) {
+                    return true;
+                }
+                return false;
+            } else if (match1[2] == match[2] - 1 && (match1[3] == match[3] + 1 || match1[3] == match[3] - 1) && board.getBoard()[match1[2]][match1[3]] != null) {
+                return true;
+            }
+        }
+        if (board.getBoard()[match[2]][match[3]].equals("bP")) {
+            if (match1[3] == match[3] && board.getBoard()[match1[2]][match1[3]] == null) {
+                if (match[2] == 1) {
+                    if (match1[2] == match[2] + 2 || match1[2] == match[2] + 1) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else if (match1[2] == match[2] + 1) {
+                    return true;
+                }
+                return false;
+            } else if (match1[2] == match[2] + 1 && (match1[3] == match[3] + 1 || match1[3] == match[3] - 1) && board.getBoard()[match1[2]][match1[3]] != null) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -25,9 +25,7 @@ public class Starter {
         Player firstPlayer = drawPlayer(player1, player2);
         Player secondPlayer = (player1.getColor().equals("w")) ? player2 : player1;
 
-        //Getting board
-        String[][] boardTable = board.getBoard();
-
+        //Print players data
         System.out.println(player1.getName() + ", " + player1.getColor() + " || " + player2.getName() + ", " + player2.getColor());
         System.out.println();
 
@@ -47,18 +45,19 @@ public class Starter {
                 currentPosition = sc.nextLine();
                 match = matcher(currentPosition);
             }
-            String currentValue = boardTable[match[2]][match[3]];
+            String currentValue = board.getBoard()[match[2]][match[3]];
 
             System.out.print("Ruch na: ");
             String newPosition = sc.nextLine();
             int[] match1 = matcher(newPosition);
-            while (match1[0] == 2 || match1[1] == 2 || newPosition.length() > 2 || newPosition.length() == 0) {
+ while (match1[0] == 2 || match1[1] == 2 || newPosition.length() > 2 || newPosition.length() == 0 || !checkMove(match, match1, board)) {
                 System.out.print(currentPlayer.getName() + " nie poprawne pole, podaj prawidłowe współrzędne : ");
                 newPosition = sc.nextLine();
                 match1 = matcher(newPosition);
             }
+
             //zapisywanie pobitej figury
-            currentPlayer.setTableVal(boardTable[match1[2]][match1[3]]);
+            currentPlayer.setTableVal(board.getBoard()[match1[2]][match1[3]]);
 
             //przypisywanie nowych wartosci
             board.setBoardValue(match1[2], match1[3], currentValue);
